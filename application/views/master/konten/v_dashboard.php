@@ -1,0 +1,108 @@
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Master Konten</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?php echo base_url();?>">Dashboard</a></li>
+              <li class="breadcrumb-item active"><a href="<?php echo base_url('index.php/master/Konten');?>">Master Konten</a></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <?php echo $this->session->flashdata('message');?>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <iframe src="<?php echo base_url('index.php/Front');?>" title="W3Schools HTML Tutorial" height="550px" width="99%" __idm_frm__="187"></iframe>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-md-12">
+            <!-- general form elements disabled -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">List Konten</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="non_export" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Insert Date</th>
+                      <th>Judul</th>
+                      <th>Jenis Konten</th>
+                      <th>Created By</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach($data_result->result() as $row ): ?>
+                      <tr>
+                        <td><?php echo $row->INSERT_DATE;?></td>
+                        <td><?php echo $row->JUDUL;?></td>
+                        <td><span class="badge bg-success"><?php if ($row->JENIS_KONTEN == '1') {
+                          echo "Pengumuman";
+                        } elseif ($row->JENIS_KONTEN == '2') {
+                          echo "Karir";
+                        } elseif ($row->JENIS_KONTEN == '3') {
+                          echo "Berita";
+                        } ?></span></td>
+                        <td><?php echo $row->USER;?></td>
+                        <td><?php if ($row->STATUS == '1') {
+                          echo '<span class="badge bg-success">Aktif</span>';
+                        } elseif ($row->STATUS == '0') {
+                          echo '<span class="badge bg-warning">Non Aktif</span>';
+                        } ?></td>
+                        <td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-warning dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                              <a class="dropdown-item" href="<?php echo base_url('index.php/master/Konten/detail/'); echo $row->ID;?>">Edit</a>
+                              <?php if ($row->STATUS == '1') {
+                            echo '<a class="dropdown-item" href="'.base_url('index.php/data/Data_konten/changestatus_konten/0/').$row->ID; echo '" onclick="clicked(event)">Deactivate Konten</a>';
+                          } elseif ($row->STATUS == '0') {
+                            echo '<a class="dropdown-item" href="'.base_url('index.php/data/Data_konten/changestatus_konten/1/').$row->ID; echo '" onclick="clicked(event)">Activate Konten</a>';
+                          } 
+                          ?>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+  </div>
+  <!-- /.content-wrapper -->
