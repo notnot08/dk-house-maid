@@ -4,14 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Kontrak_model extends CI_Model {
 
 	public function insert_kontrak($data){
-		$query = $this->db->insert('MST_KONTRAK', $data);
+		$query = $this->db->insert('TB_KONTRAK', $data);
 		return $query;
 	}
 
 	public function updateDokNull($id, $data){
 		$this->db->trans_start();
 			$this->db->where('ID', $id);
-			$this->db->update('MST_KONTRAK', $data);
+			$this->db->update('TB_KONTRAK', $data);
 			$this->db->trans_complete(); 
 
 			if ($this->db->trans_status() === FALSE) {
@@ -38,9 +38,9 @@ h.ID as 'ID_PERUSAHAAN', h.NAMA_PERUSAHAAN as 'NAMA_PERUSAHAAN', h.ALAMAT as 'AL
 i.TUNJANGAN_KESEHATAN as 'TUNJANGAN_KESEHATAN2', i.TUNJANGAN_TRANSPORTASI as 'TUNJANGAN_TRANSPORTASI2', i.UANG_KERAJINAN as 'UANG_KERAJINAN2', 
 i.BIAYA_PENGOBATAN as 'BIAYA_PENGOBATAN2', i.CUTI_TAHUNAN as 'CUTI_TAHUNAN2', i.LAMA_BEKERJA as 'LAMA_KONTRAK2', i.SATUAN_LAMA_BEKERJA as 
 'SATUAN_LAMA_KONTRAK2', i.WAKTU_KERJA as 'WAKTU_KERJA2', i.SATUAN_WAKTU_KERJA as 'SATUAN_WAKTU_KERJA2', i.JAM_PERHARI as 'JAM_PERHARI2', 
-i.JAM_PERMINGGU as 'JAM_PERMINGGU2' FROM MST_KONTRAK a LEFT JOIN MST_PEKERJAAN b ON a.ID_PEKERJAAN = b.ID LEFT JOIN JUSTIFIKASI_PEKERJAAN c 
-ON a.ID = c.ID_KONTRAK LEFT JOIN MST_TKI e ON c.ID_TKI = e.ID LEFT JOIN ALAMAT f ON c.ID_TKI = f.ID_TKI LEFT JOIN MST_GROUP g ON e.ID_GROUP = 
-g.ID LEFT JOIN MST_PERUSAHAAN h ON g.ID_PERUSAHAAN = h.ID LEFT JOIN MST_LOWONGAN i ON c.ID_LOWONGAN = i.ID WHERE a.ID = '".$id."'");
+i.JAM_PERMINGGU as 'JAM_PERMINGGU2' FROM TB_KONTRAK a LEFT JOIN TB_PEKERJAAN b ON a.ID_PEKERJAAN = b.ID LEFT JOIN JUSTIFIKASI_PEKERJAAN c 
+ON a.ID = c.ID_KONTRAK LEFT JOIN MST_TKI e ON c.ID_TKI = e.ID LEFT JOIN ALAMAT f ON c.ID_TKI = f.ID_TKI LEFT JOIN TB_GROUP g ON e.ID_GROUP = 
+g.ID LEFT JOIN MST_PERUSAHAAN h ON g.ID_PERUSAHAAN = h.ID LEFT JOIN TB_LOWONGAN i ON c.ID_LOWONGAN = i.ID WHERE a.ID = '".$id."'");
 		return $hasil;
 	}
 
@@ -64,7 +64,7 @@ g.ID LEFT JOIN MST_PERUSAHAAN h ON g.ID_PERUSAHAAN = h.ID LEFT JOIN MST_LOWONGAN
 		}
 
 		$hasil = $this->db->query("
-			SELECT a.ID, a.NO_KONTRAK, c.MAID_CODE, c.NAMA, b.KONTRAK_KERJA_APPROVAL, (SELECT PEKERJAAN FROM MST_PEKERJAAN WHERE ID = a.ID_PEKERJAAN) as 'PEKERJAAN', a.ID_PEKERJAAN, a.PIHAK_PERTAMA, a.PIHAK_KEDUA, DATE_FORMAT(a.TGL_PENGESAHAN, '%d %M %Y') as 'TANGGAL_PENGESAHAN', b.ID as 'ID_JUSTIFIKASI' FROM MST_KONTRAK a JOIN JUSTIFIKASI_PEKERJAAN b ON a.ID = b.ID_KONTRAK JOIN MST_TKI c ON b.ID_TKI = c.ID WHERE ".$condition." LIKE '%".$value."%' ".$condition1."");
+			SELECT a.ID, a.NO_KONTRAK, c.MAID_CODE, c.NAMA, b.KONTRAK_KERJA_APPROVAL, (SELECT PEKERJAAN FROM TB_PEKERJAAN WHERE ID = a.ID_PEKERJAAN) as 'PEKERJAAN', a.ID_PEKERJAAN, a.PIHAK_PERTAMA, a.PIHAK_KEDUA, DATE_FORMAT(a.TGL_PENGESAHAN, '%d %M %Y') as 'TANGGAL_PENGESAHAN', b.ID as 'ID_JUSTIFIKASI' FROM TB_KONTRAK a JOIN JUSTIFIKASI_PEKERJAAN b ON a.ID = b.ID_KONTRAK JOIN MST_TKI c ON b.ID_TKI = c.ID WHERE ".$condition." LIKE '%".$value."%' ".$condition1."");
 		return $hasil;
 	}
 
@@ -76,14 +76,14 @@ g.ID LEFT JOIN MST_PERUSAHAAN h ON g.ID_PERUSAHAAN = h.ID LEFT JOIN MST_LOWONGAN
 		}
 
 		$hasil = $this->db->query("
-			SELECT a.ID, a.NO_KONTRAK, c.MAID_CODE, c.NAMA, b.KONTRAK_KERJA_APPROVAL, (SELECT PEKERJAAN FROM MST_PEKERJAAN WHERE ID = a.ID_PEKERJAAN) as 'PEKERJAAN', a.ID_PEKERJAAN, a.PIHAK_PERTAMA, a.PIHAK_KEDUA, DATE_FORMAT(a.TGL_PENGESAHAN, '%d %M %Y') as 'TANGGAL_PENGESAHAN', b.ID as 'ID_JUSTIFIKASI' FROM MST_KONTRAK a JOIN JUSTIFIKASI_PEKERJAAN b ON a.ID = b.ID_KONTRAK JOIN MST_TKI c ON b.ID_TKI = c.ID ".$condition1."");
+			SELECT a.ID, a.NO_KONTRAK, c.MAID_CODE, c.NAMA, b.KONTRAK_KERJA_APPROVAL, (SELECT PEKERJAAN FROM TB_PEKERJAAN WHERE ID = a.ID_PEKERJAAN) as 'PEKERJAAN', a.ID_PEKERJAAN, a.PIHAK_PERTAMA, a.PIHAK_KEDUA, DATE_FORMAT(a.TGL_PENGESAHAN, '%d %M %Y') as 'TANGGAL_PENGESAHAN', b.ID as 'ID_JUSTIFIKASI' FROM TB_KONTRAK a JOIN JUSTIFIKASI_PEKERJAAN b ON a.ID = b.ID_KONTRAK JOIN MST_TKI c ON b.ID_TKI = c.ID ".$condition1."");
 		return $hasil;
 	}
 
 	public function generate_nomor_kontrak($id, $data){
 		$this->db->set($data);
 		$this->db->where('ID', $id);
-		return $this->db->update('MST_KONTRAK');
+		return $this->db->update('TB_KONTRAK');
 	}
 
 	public function update_approval_kontrak($param, $id_kontrak, $data){
@@ -108,10 +108,10 @@ g.ID LEFT JOIN MST_PERUSAHAAN h ON g.ID_PERUSAHAAN = h.ID LEFT JOIN MST_LOWONGAN
 			}
 		} elseif ($param == 'APPROVE') {
 			/*$query = "UPDATE JUSTIFIKASI_PEKERJAAN SET KONTRAK_KERJA_APPROVAL = '1', APPROVED_BY_3 = '".$_SESSION['logged_in']['id_user']."', APPROVED_DATE_3 = CURRENT_TIMESTAMP() WHERE ID_KONTRAK = '".$id_kontrak."'";*/
-			/*$query1 = "UPDATE MST_KONTRAK SET NO_KONTRAK = CONCAT(NO, '/SKK', '".$nomor_surat."') WHERE ID = '".$id_kontrak."'";
+			/*$query1 = "UPDATE TB_KONTRAK SET NO_KONTRAK = CONCAT(NO, '/SKK', '".$nomor_surat."') WHERE ID = '".$id_kontrak."'";
 			$this->db->query($query1);*/
 
-			$query1 = "UPDATE MST_KONTRAK SET NO_KONTRAK = CONCAT(NO, '/SKK', '".$data['NOMOR_SURAT']."') WHERE ID = '".$id_kontrak."'";
+			$query1 = "UPDATE TB_KONTRAK SET NO_KONTRAK = CONCAT(NO, '/SKK', '".$data['NOMOR_SURAT']."') WHERE ID = '".$id_kontrak."'";
 			
 			$data1 = array(
 				'KONTRAK_KERJA_APPROVAL' => $data['KONTRAK_KERJA_APPROVAL'],
@@ -151,7 +151,7 @@ g.ID LEFT JOIN MST_PERUSAHAAN h ON g.ID_PERUSAHAAN = h.ID LEFT JOIN MST_LOWONGAN
 			$this->db->update('JUSTIFIKASI_PEKERJAAN', $data1);
 
 			$this->db->where('ID', $id_kontrak);
-			$this->db->update('MST_KONTRAK', $data2);
+			$this->db->update('TB_KONTRAK', $data2);
 
 			$this->db->trans_complete(); 
 
