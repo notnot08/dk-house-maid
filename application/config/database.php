@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-/*$db['default'] = array(
+$db['default'] = array(
     'dsn'   => '',
     'hostname' => 'localhost',
     'username' => 'root',
@@ -93,30 +93,30 @@ $query_builder = TRUE;
     'stricton' => FALSE,
     'failover' => array(),
     'save_queries' => TRUE
-);*/
+);
 
 //PROD
-$db['default'] = array(
-    'dsn'   => '',
-    'hostname' => 'localhost',
-    'username' => '41817310006',
-    'password' => 'calonsarjana',
-    'database' => 'db_ctki',
-    'dbdriver' => 'mysqli',
-    'dbprefix' => '',
-    'pconnect' => FALSE,
-    'db_debug' => (ENVIRONMENT !== 'production'),
-    'cache_on' => FALSE,
-    'cachedir' => '',
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
-    'swap_pre' => '',
-    'encrypt' => FALSE,
-    'compress' => FALSE,
-    'stricton' => FALSE,
-    'failover' => array(),
-    'save_queries' => TRUE
-);
+// $db['default'] = array(
+//     'dsn'   => '',
+//     'hostname' => 'localhost',
+//     'username' => '41817310006',
+//     'password' => 'calonsarjana',
+//     'database' => 'db_ctki',
+//     'dbdriver' => 'mysqli',
+//     'dbprefix' => '',
+//     'pconnect' => FALSE,
+//     'db_debug' => (ENVIRONMENT !== 'production'),
+//     'cache_on' => FALSE,
+//     'cachedir' => '',
+//     'char_set' => 'utf8',
+//     'dbcollat' => 'utf8_general_ci',
+//     'swap_pre' => '',
+//     'encrypt' => FALSE,
+//     'compress' => FALSE,
+//     'stricton' => FALSE,
+//     'failover' => array(),
+//     'save_queries' => TRUE
+// );
 
 $db['default']['options'] = array(PDO::ATTR_TIMEOUT => 30);
 // set global max_allowed_packet=268435456;
