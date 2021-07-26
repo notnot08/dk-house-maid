@@ -7,11 +7,11 @@ class InsertUpdate_model extends CI_Model {
 		return $this->db->get_where('JUSTIFIKASI_PEKERJAAN', $data);
 	}
 
-	public function register_ctki($param, $dataTki, $dataAlamat, $id_data = FALSE){
+	public function register_ctki($param, $dataTki, $dataAlamat = [], $id_data = FALSE){
 		if ($param == 'INSERT') {
 			$this->db->trans_start();
 			$this->db->insert('MST_TKI', $dataTki);
-			$this->db->insert('ALAMAT', $dataAlamat);
+			// $this->db->insert('ALAMAT', $dataAlamat);
 			$this->db->trans_complete(); 
 
 			if ($this->db->trans_status() === FALSE) {
@@ -24,11 +24,12 @@ class InsertUpdate_model extends CI_Model {
 			}
 		} elseif ($param == 'UPDATE') {
 			$this->db->trans_start();
-			$this->db->where('ID', $id_data['ID_TKI']);
+			// $this->db->where('ID', $id_data['ID_TKI']);
+			$this->db->where('ID', $id_data);
 			$this->db->update('MST_TKI', $dataTki);
 
-			$this->db->where('ID', $id_data['ALAMAT_ID']);
-			$this->db->update('ALAMAT', $dataAlamat);
+			// $this->db->where('ID', $id_data['ALAMAT_ID']);
+			// $this->db->update('ALAMAT', $dataAlamat);
 			$this->db->trans_complete(); 
 
 			if ($this->db->trans_status() === FALSE) {

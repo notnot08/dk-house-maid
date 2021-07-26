@@ -72,7 +72,7 @@ class Tki extends CI_Controller {
 				$data['submenu2'] = 'approve_tki';
 				$data['isform'] = 'Y';
 				$array['data_tki'] = $this->Tki_model->get_tki_detail('DETAIL_TKI', $id);
-				$array['data_alamat'] = $this->Tki_model->get_tki_detail('ALAMAT', $id);
+				// $array['data_alamat'] = $this->Tki_model->get_tki_detail('ALAMAT', $id);
 				$array['data_kualifikasi'] = $this->Tki_model->get_tki_kualifikasi($id);
 				$array['data_dokumen'] = $this->Tki_model->get_tki_dokumen($id);
 				$array['data_timeline'] = $this->Tki_model->get_timeline($id);

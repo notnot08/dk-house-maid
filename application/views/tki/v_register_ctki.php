@@ -190,11 +190,20 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="inputnik">Alamat Lengkap</label>
+                        <textarea class="form-control" rows="3" placeholder="contoh: JL. Raya Cibodas ..." required name="alamat_lengkap"></textarea>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
               
+              <!--               
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Alamat Calon TKI</h3>
@@ -204,8 +213,8 @@
                   </button>
                 </div>
                 </div>
-                <!-- /.card-header -->
-                <!-- form start -->
+                /.card-header 
+                /.form start 
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-12">
@@ -281,10 +290,12 @@
                     </div>
                   </div>
                 </div>
-                <!-- /.card-body -->
+                /.card-body 
               </div>
-                <div class="card">
-              <div class="card-header">
+              -->
+
+              <div class="card">
+                <div class="card-header">
                 <h3 class="card-title">Dokumen dan Kelengkapan</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
