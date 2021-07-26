@@ -84,7 +84,7 @@
           </div>
           <div class="row">
             <div class="col-8">
-              <a href="forgot-password.html">Lupa Password?</a>
+              <!-- <a href="forgot-password.html">Lupa Password?</a> -->
             </div>
             <!-- /.col -->
             <div class="col-4">
