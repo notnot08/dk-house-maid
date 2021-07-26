@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 26, 2021 at 07:38 AM
+-- Generation Time: Jul 26, 2021 at 07:51 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.20
 
@@ -25,10 +25,10 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `setApproveDokTki` (IN `ID_TKI` VARCHAR(11), IN `ID_JUSTIFIKASI` VARCHAR(11))  NO SQL
+CREATE PROCEDURE `setApproveDokTki` (IN `ID_TKI` VARCHAR(11), IN `ID_JUSTIFIKASI` VARCHAR(11))  NO SQL
 UPDATE JUSTIFIKASI_PEKERJAAN SET DATA_DIRI_APPROVAL = (SELECT APPROVE FROM MST_TKI WHERE ID = ID_TKI), APPROVED_BY_1 = (SELECT APPROVED_BY FROM MST_TKI WHERE ID = ID_TKI), APPROVED_DATE_1 = (SELECT APPROVED_DATE FROM MST_TKI WHERE ID = ID_TKI) WHERE ID = ID_JUSTIFIKASI$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `setUserPenyalur` (IN `ID_NYA` VARCHAR(11), IN `ID_USER` VARCHAR(11), IN `ID_PEMBUAT` VARCHAR(11), IN `USERNYA` VARCHAR(100))  NO SQL
+CREATE PROCEDURE `setUserPenyalur` (IN `ID_NYA` VARCHAR(11), IN `ID_USER` VARCHAR(11), IN `ID_PEMBUAT` VARCHAR(11), IN `USERNYA` VARCHAR(100))  NO SQL
 INSERT INTO MST_USER (id, username, nama, jenis, id_penyalur, id_group, created_by)
   SELECT
     ID_USER AS id,
@@ -43,25 +43,27 @@ INSERT INTO MST_USER (id, username, nama, jenis, id_penyalur, id_group, created_
 
 DELIMITER ;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `ALAMAT`
+-- Table structure for table `DOKUMEN`
 --
 
-INSERT INTO `ALAMAT` (`ID`, `ID_TKI`, `JENIS_ALAMAT`, `JALAN`, `RT`, `RW`, `KECAMATAN`, `KELURAHAN`, `KOTA`, `KD_POS`, `PROVINSI`, `DESA`, `STATUS`, `UPDATE_DATE`, `INSERT_DATE`, `CREATED_BY`) VALUES
-('03566212221', '93834114568', '1', 'JL.ASOKA', '09', '11', 'JONGGOL', 'CIBARUSAH', '', '5342', 'JAWA BARAT', 'ASEM', '1', '2021-07-24 12:36:02', '2021-06-28 13:51:35', '77948121680'),
-('12498215141', '16070526111', '1', 'JL. GRIYA ALAM', '05', '05', 'GUNUNG PUTRI', 'CIKETING', 'BEKASI', '17563', 'JAWA BARAT', 'JONGGOL', '1', '2021-07-24 12:36:02', '2021-07-15 12:02:11', '49262817821'),
-('22154382108', '69780407925', '1', 'JL.MAWAR RAYA', '04', '05', 'BTG', 'CIKETING', 'BEKASI', '5423', 'JAWA BARAT', 'CIKETING', '1', '2021-07-24 12:36:02', '2021-06-28 16:04:31', '77948121680'),
-('44707003914', '44707003914', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '2021-07-24 12:36:02', '2021-07-18 00:20:00', '55650904902'),
-('47099867192', '15648987259', '2', 'JL. SERSAN IDRIS BEKASI SELATAN', '03', '03', 'BEKASI SELATAN', 'MARGAJAYA', 'BEKASI', '17141', 'JAWA BARAT', '', '1', '2021-07-24 12:36:02', '2021-06-27 19:40:18', '33427054656'),
-('50685618000', '91364055944', '1', 'JL ILYUSIN', '010', '009', 'HANG JEBAT', 'GUNUNG', 'JAKARTA SELATAN', '14304', 'DKI JAKARTA', 'GUNUNG', '1', '2021-07-24 12:36:02', '2021-05-30 12:15:40', '55650904902'),
-('51292746411', '81019540111', '1', 'PANGKALAN 2', '04', '05', 'BTG', 'CIKUT', 'BEKASI', '4632', 'JAWA BARAT', 'ASEM', '1', '2021-07-24 12:36:02', '2021-06-29 20:53:38', '68119264882'),
-('59779438575', '58787295482', '1', 'JL. UJUNG ASPAL', '007', '015', 'JAKARTA SELATAN', 'HAJI NAIM', 'JAKARTA', '12192', 'DKI JAKARTA', 'JAKARTA', '1', '2021-07-24 12:36:02', '2021-07-22 10:56:16', '55650904902'),
-('76821858511', '98157795032', '1', 'JL.MAWAR', '12', '08', 'BTG', 'CIKETING', 'BEKASI', '5371', 'JAWA BARAT', 'CIKETINGUDIK', '1', '2021-07-24 12:36:02', '2021-06-26 17:55:06', '86629414379'),
-('77354660722', '34701974666', '1', 'ADASDA', '4', '3', 'DFG', 'HDF', 'SDF', '2342', 'SDF', 'SDFSG', '1', '2021-07-24 12:36:02', '2021-07-21 03:54:45', '55650904902'),
-('82977903027', '89633022735', '2', 'JL. CISADANE', '001', '002', 'BOJONG BARAT', 'BOJONG', 'BOGOR', '12323', 'JAWA TIMUR', 'BOJONG', '1', '2021-07-24 12:36:02', '2021-06-28 19:55:08', '12205428825'),
-('88054256601', '57138937481', '1', 'JL.MELATI', '03', '04', 'MUSTIKA', 'CIMUNING', 'BEKASI', '5032', 'JAWA BARAT', 'CIKETING', '1', '2021-07-24 12:36:02', '2021-06-26 19:01:18', '67027419424'),
-('88526056810', '43515268261', '2', 'JL. RAYA KRANGGAN NO. 6 JATISAMPURNA BEKASI.', '001', '009', 'JATIRANGGA', 'JATISAMPURNA', 'BEKASI', '14', 'JAWA BARAT', 'BEKASI', '1', '2021-07-24 12:36:02', '2021-05-28 20:26:14', '55650904902'),
-('93161573058', '72950688146', '1', 'JL. PONDOK', '001', '001', 'TIMUR', 'BOJONG', 'BEKASI', '17426', 'JAWA BARAT', 'BOJONG', '1', '2021-07-24 12:36:02', '2021-07-08 15:08:34', '55650904902');
+CREATE TABLE `DOKUMEN` (
+  `ID` varchar(11) NOT NULL,
+  `ID_TKI` varchar(11) DEFAULT NULL,
+  `ID_JENIS_DOK` varchar(11) NOT NULL,
+  `ID_KONTRAK` varchar(11) DEFAULT NULL,
+  `ID_PERJANJIAN` varchar(11) DEFAULT NULL,
+  `CODE` varchar(50) DEFAULT NULL,
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `PATH` text DEFAULT NULL,
+  `FILE` varchar(20) DEFAULT NULL,
+  `DELETED_BY` varchar(11) DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `DOKUMEN`
@@ -97,6 +99,38 @@ INSERT INTO `DOKUMEN` (`ID`, `ID_TKI`, `ID_JENIS_DOK`, `ID_KONTRAK`, `ID_PERJANJ
 ('95034081039', '58787295482', '53890630510', NULL, NULL, NULL, '1', './assets/uploaded/tki', '95034081039.png', NULL, '2021-07-24 12:36:02', '2021-07-22 02:56:16', '55650904902'),
 ('95580628426', '81019540111', '72800662015', NULL, NULL, NULL, '1', './assets/uploaded/tki', '251082393194.jpg', NULL, '2021-07-24 12:36:02', '2021-06-29 12:53:38', '68119264882');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `JUSTIFIKASI_PEKERJAAN`
+--
+
+CREATE TABLE `JUSTIFIKASI_PEKERJAAN` (
+  `ID` varchar(11) NOT NULL,
+  `ID_TKI` varchar(11) NOT NULL,
+  `ID_PEKERJAAN` varchar(11) NOT NULL,
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `PROGRESS` varchar(1) NOT NULL DEFAULT '1' COMMENT '0 = COMPLETED, 1 = NEW, 2 = ON PROGRESS, 3 = APPROVED, 4 = REJECTED, 5 = CANCELED, 6 = CANCELED CONTRACT',
+  `DATA_DIRI_APPROVAL` varchar(1) NOT NULL DEFAULT '0' COMMENT '0 = NEW, 1 = APPROVED, 2 = REJECTED',
+  `APPROVED_BY_1` varchar(11) DEFAULT NULL,
+  `APPROVED_DATE_1` timestamp NULL DEFAULT NULL,
+  `SURAT_PERJANJIAN_APPROVAL` varchar(1) DEFAULT NULL COMMENT '0 = NEW, 1 = APPROVED, 2 = REJECTED, 3 = SUBMITED, 4',
+  `APPROVED_BY_2` varchar(11) DEFAULT NULL,
+  `APPROVED_DATE_2` timestamp NULL DEFAULT NULL,
+  `KONTRAK_KERJA_APPROVAL` varchar(1) DEFAULT NULL COMMENT '0 = NEW, 1 = APPROVED, 2 = REJECTED, 3 = SUBMITED',
+  `APPROVED_BY_3` varchar(11) DEFAULT NULL,
+  `APPROVED_DATE_3` timestamp NULL DEFAULT NULL,
+  `ID_KONTRAK` varchar(11) DEFAULT NULL,
+  `ID_PERJANJIAN` varchar(11) DEFAULT NULL,
+  `ID_LOWONGAN` varchar(11) DEFAULT NULL,
+  `ASSIGNED_BY` varchar(11) DEFAULT NULL,
+  `ASSIGNED_DATE` timestamp NULL DEFAULT NULL,
+  `CATATAN` text DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `JUSTIFIKASI_PEKERJAAN`
 --
@@ -117,6 +151,24 @@ INSERT INTO `JUSTIFIKASI_PEKERJAAN` (`ID`, `ID_TKI`, `ID_PEKERJAAN`, `STATUS`, `
 ('74379130711', '72950688146', '82037052359', '1', '1', '1', '63935625183', '2021-07-08 07:11:17', '1', '55650904902', '2021-07-15 11:31:51', '1', '55650904902', '2021-07-15 11:36:59', '42132028291', '44380153803', '74835702502', '70702061090', '2021-07-08 07:13:22', 'BABY SITTER', '2021-07-24 12:36:02', '2021-07-08 07:12:10', '55650904902'),
 ('89907203728', '69780407925', '82037052359', '0', '0', '1', '63935625183', '2021-06-28 08:06:25', '1', '77948121680', '2021-06-28 08:29:08', '1', '77948121680', '2021-06-28 08:43:50', '76863707574', '67481019884', '74835702502', '70702061090', '2021-06-28 08:17:07', 'MENGURUS BAYI', '2021-07-24 12:36:02', '2021-06-28 08:08:18', '77948121680'),
 ('99847542180', '98157795032', '82037052359', '0', '0', '1', '63935625183', '2021-06-26 09:56:42', '1', '86629414379', '2021-06-26 10:24:06', '1', '86629414379', '2021-06-26 10:41:21', '36830561761', '36474856255', '74835702502', '70702061090', '2021-06-26 10:11:46', 'CUCI PIRING', '2021-07-24 12:36:02', '2021-06-26 10:01:54', '86629414379');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `KUALIFIKASI`
+--
+
+CREATE TABLE `KUALIFIKASI` (
+  `ID` varchar(11) NOT NULL,
+  `ID_TKI` varchar(11) DEFAULT NULL,
+  `ID_KUALIFIKASI` varchar(11) NOT NULL,
+  `JAWABAN` varchar(1) DEFAULT NULL,
+  `KETERANGAN` text DEFAULT NULL,
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `KUALIFIKASI`
@@ -153,6 +205,24 @@ INSERT INTO `KUALIFIKASI` (`ID`, `ID_TKI`, `ID_KUALIFIKASI`, `JAWABAN`, `KETERAN
 ('87792554976', '93834114568', '67573529266', 'Y', '', '1', '2021-07-24 12:36:02', '2021-06-28 05:51:35', '77948121680'),
 ('93243842322', '69780407925', '58575113282', 'N', '', '1', '2021-07-24 12:36:02', '2021-06-28 08:04:31', '77948121680'),
 ('95536692643', '91364055944', '58575113282', 'N', 'TIDAK MEMILIKI', '1', '2021-07-24 12:36:02', '2021-05-30 04:15:40', '55650904902');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LOG`
+--
+
+CREATE TABLE `LOG` (
+  `ID` int(11) NOT NULL,
+  `JENIS` int(11) NOT NULL,
+  `CODE` varchar(11) DEFAULT NULL,
+  `AKSI` varchar(6) DEFAULT NULL,
+  `STATUS` varchar(1) DEFAULT NULL COMMENT '1 = SUKSES, 0 = GAGAL',
+  `CATATAN` text DEFAULT NULL,
+  `CHANGE_STATUS` varchar(1) DEFAULT NULL,
+  `ID_USER` varchar(11) DEFAULT NULL,
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `LOG`
@@ -1176,6 +1246,24 @@ INSERT INTO `LOG` (`ID`, `JENIS`, `CODE`, `AKSI`, `STATUS`, `CATATAN`, `CHANGE_S
 (1013, 1, NULL, NULL, NULL, 'SUKSES', NULL, '55650904902', '2021-07-25 16:03:26'),
 (1014, 28, '93403386812', 'UPDATE', '1', '1|55650904902|2021-07-25 18:03:44|/VII/2021', '1', '55650904902', '2021-07-25 16:03:44');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `LOG_EVENT`
+--
+
+CREATE TABLE `LOG_EVENT` (
+  `ID` int(11) NOT NULL,
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `EVENTTYPE` varchar(100) NOT NULL,
+  `MESSAGE` varchar(400) NOT NULL,
+  `REF1` varchar(11) DEFAULT NULL,
+  `REF2` varchar(11) DEFAULT NULL,
+  `REF3` varchar(11) DEFAULT NULL,
+  `USER` varchar(200) DEFAULT NULL,
+  `REMARK` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `LOG_EVENT`
 --
@@ -1308,6 +1396,30 @@ INSERT INTO `LOG_EVENT` (`ID`, `INSERT_DATE`, `EVENTTYPE`, `MESSAGE`, `REF1`, `R
 (125, '2021-07-25 16:02:57', 'MANAGER.CREATEKONTRAK', 'MANAGER MEMBUAT KONTRAK KERJA', '', '70786297126', '93403386812', 'TESTING MANAGER 1', ''),
 (126, '2021-07-25 16:03:44', 'PENYALUR.APPROVEKONTRAKKERJA', 'PENYALUR MENYETUJUI KONTRAK KERJA', '', '70786297126', '93403386812', 'TESTING PENYALUR', '');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `MST_PENYALUR`
+--
+
+CREATE TABLE `MST_PENYALUR` (
+  `ID` varchar(11) NOT NULL,
+  `NAMA` varchar(100) DEFAULT NULL,
+  `NIK` varchar(16) DEFAULT NULL,
+  `NPWP` varchar(20) DEFAULT NULL,
+  `ALAMAT` text DEFAULT NULL,
+  `TEMPAT_LAHIR` varchar(50) DEFAULT NULL,
+  `TANGGAL_LAHIR` date DEFAULT NULL,
+  `ID_GROUP` int(11) DEFAULT NULL,
+  `APPROVE` varchar(1) DEFAULT '0' COMMENT '0 = NEW, 1 = APPROVED, 2 = REJECTED',
+  `APPROVED_BY` varchar(11) DEFAULT NULL,
+  `APPROVED_DATE` timestamp NULL DEFAULT NULL,
+  `CATATAN` text DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `MST_PENYALUR`
 --
@@ -1330,6 +1442,26 @@ INSERT INTO `MST_PENYALUR` (`ID`, `NAMA`, `NIK`, `NPWP`, `ALAMAT`, `TEMPAT_LAHIR
 ('89595150334', 'SAFIRA', '3212197239123', '20393239', 'JL. BOJONG KULUR', 'TEGAL', '1998-10-19', 4, '1', '70702061090', '2021-06-28 11:33:03', NULL, '2021-07-24 12:36:03', '2021-06-28 11:30:27', '63935625183'),
 ('99488745340', 'ATIKA', '3172931238320002', '2120192830112', 'CLUSTER GARDEN HILS', 'BEKASI', '1991-03-07', 1, '1', '70702061090', '2021-05-28 11:09:47', NULL, '2021-07-24 12:36:03', '2021-05-28 11:08:30', '63935625183');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `MST_PERUSAHAAN`
+--
+
+CREATE TABLE `MST_PERUSAHAAN` (
+  `ID` varchar(11) NOT NULL,
+  `NAMA_PERUSAHAAN` varchar(100) NOT NULL,
+  `NPWP` varchar(20) DEFAULT NULL,
+  `ALAMAT` text DEFAULT NULL,
+  `NO_TELP` varchar(12) DEFAULT NULL,
+  `EMAIL` varchar(200) DEFAULT NULL,
+  `CONTACT_PERSON` varchar(50) DEFAULT NULL,
+  `STATUS` int(11) DEFAULT 1 COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `MST_PERUSAHAAN`
 --
@@ -1342,6 +1474,42 @@ INSERT INTO `MST_PERUSAHAAN` (`ID`, `NAMA_PERUSAHAAN`, `NPWP`, `ALAMAT`, `NO_TEL
 ('86779238522', 'PT R A SEJAHTERA', '92838299238', 'KOMP. KELAPA GADING', '02121183121', 'rasejahtera@gmail.com', NULL, 1, '2021-07-24 12:36:03', '2021-06-28 11:03:15', '63935625183'),
 ('91892931365', 'PT RA JAYA', '9999988389822', 'JL. CLUSTER ASIA AFRIKA', '0212143812', 'rajaya@office.com', NULL, 1, '2021-07-24 12:36:03', '2021-07-20 16:08:19', '63935625183'),
 ('92718486902', 'PT. ASSALAM KARYA MANUNGGAL PUTRA', NULL, 'JALAN INSPEKTUR MARZUKI NOMOR 2564 A RT. 04 RW. 09. KELURAHAN INSPEKTUR MARZUKI NOMOR 2564 A RT. 04 RW. 09. KELURAHAN SIRING AGUNG PAKJO PALEMBANG', '081283838383', 'assalam@email.com', NULL, 1, '2021-07-24 12:36:03', '2021-04-30 18:27:04', '46204811185');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `MST_TKI`
+--
+
+CREATE TABLE `MST_TKI` (
+  `ID` varchar(11) NOT NULL,
+  `NIK` varchar(16) DEFAULT NULL,
+  `MAID_CODE` varchar(12) DEFAULT NULL,
+  `NAMA` varchar(100) DEFAULT NULL,
+  `PASSPORT` varchar(11) DEFAULT NULL,
+  `TEMPAT_LAHIR` varchar(50) DEFAULT NULL,
+  `TANGGAL_LAHIR` date DEFAULT NULL,
+  `JENIS_KELAMIN` varchar(1) DEFAULT NULL COMMENT 'L = LAKI LAKI, P = PEREMPUAN',
+  `TINGGI_BADAN` varchar(3) DEFAULT '0',
+  `BERAT_BADAN` varchar(3) DEFAULT '0',
+  `KEWARGANEGARAAN` varchar(3) DEFAULT NULL,
+  `NEGARA_ASAL` varchar(50) DEFAULT NULL,
+  `AGAMA` varchar(10) DEFAULT NULL,
+  `JML_SAUDARA` varchar(2) DEFAULT '0',
+  `ANAK_KE` varchar(2) DEFAULT '0',
+  `STATUS_NIKAH` varchar(1) DEFAULT NULL,
+  `JML_ANAK` varchar(2) DEFAULT '0',
+  `PENDIDIKAN_TERAKHIR` varchar(3) DEFAULT NULL,
+  `ALAMAT_LENGKAP` text NOT NULL,
+  `APPROVE` varchar(1) NOT NULL DEFAULT '0' COMMENT '0 = NEW, 1 = APPROVED, 2 = REJECTED',
+  `APPROVED_BY` varchar(11) DEFAULT NULL,
+  `APPROVED_DATE` timestamp NULL DEFAULT NULL,
+  `CATATAN` text DEFAULT NULL,
+  `ID_GROUP` varchar(3) DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `MST_TKI`
@@ -1368,6 +1536,45 @@ INSERT INTO `MST_TKI` (`ID`, `NIK`, `MAID_CODE`, `NAMA`, `PASSPORT`, `TEMPAT_LAH
 ('98157795032', '32748582', 'P98157795032', 'BERLYN', '372245', 'BEKASI', '2001-03-08', 'P', '153', '50', 'WNI', 'INDONESIA', 'ISLAM', '2', '1', 'N', '', 'SMA', '', '1', '63935625183', '2021-06-26 09:56:42', NULL, '1', '2021-07-24 12:36:03', '2021-06-26 09:55:06', '86629414379');
 
 --
+-- Triggers `MST_TKI`
+--
+DELIMITER $$
+CREATE TRIGGER `UpdateApprovalDataDiri` AFTER UPDATE ON `MST_TKI` FOR EACH ROW UPDATE JUSTIFIKASI_PEKERJAAN SET DATA_DIRI_APPROVAL = new.APPROVE, APPROVED_BY_1 = new.APPROVED_BY, APPROVED_DATE_1 = new.APPROVED_DATE WHERE ID_TKI = new.ID
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `RIWAYAT_PEKERJAAN`
+--
+
+CREATE TABLE `RIWAYAT_PEKERJAAN` (
+  `ID` varchar(11) NOT NULL,
+  `ID_TKI` varchar(11) NOT NULL,
+  `ID_PEKERJAAN` varchar(11) NOT NULL,
+  `LAMA_BEKERJA` varchar(2) DEFAULT NULL,
+  `SATUAN_LAMA_BEKERJA` varchar(20) DEFAULT NULL,
+  `LOKASI` varchar(50) DEFAULT NULL,
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_EVENTTYPE`
+--
+
+CREATE TABLE `TB_EVENTTYPE` (
+  `ID` int(11) NOT NULL,
+  `EVENT` text NOT NULL,
+  `DETAIL` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Dumping data for table `TB_EVENTTYPE`
 --
 
@@ -1388,6 +1595,18 @@ INSERT INTO `TB_EVENTTYPE` (`ID`, `EVENT`, `DETAIL`) VALUES
 (14, 'PENYALUR.REJECTSURATPERJANJIAN', 'PENYALUR MENOLAK SURAT PERJANJIAN'),
 (15, 'PENYALUR.REJECTKONTRAKKERJA', 'PENYALUR MENOLAK KONTRAK KERJA');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_GROUP`
+--
+
+CREATE TABLE `TB_GROUP` (
+  `ID` int(11) NOT NULL,
+  `ID_PERUSAHAAN` varchar(11) NOT NULL,
+  `KET` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `TB_GROUP`
 --
@@ -1400,6 +1619,23 @@ INSERT INTO `TB_GROUP` (`ID`, `ID_PERUSAHAAN`, `KET`) VALUES
 (5, '08123592237', 'PENYALUR'),
 (6, '06855116982', 'PENYALUR'),
 (7, '91892931365', 'PENYALUR');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_JENIS_DOK`
+--
+
+CREATE TABLE `TB_JENIS_DOK` (
+  `ID` varchar(11) NOT NULL,
+  `NAMA_DOKUMEN` varchar(50) NOT NULL,
+  `ALIAS` varchar(10) NOT NULL,
+  `JENIS` varchar(1) DEFAULT NULL COMMENT '1 = Doc Wajib CTKI, 2 = Doc Wajib Penyalur, NULL = Doc Surat/Dokumen',
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TB_JENIS_DOK`
@@ -1418,12 +1654,70 @@ INSERT INTO `TB_JENIS_DOK` (`ID`, `NAMA_DOKUMEN`, `ALIAS`, `JENIS`, `STATUS`, `U
 ('95932287375', 'PAS FOTO', '', '1', '1', '2021-07-24 12:36:03', '2021-04-30 18:38:15', '77739680169'),
 ('99082695476', 'KARTU KELUARGA', 'KK', '1', '1', '2021-07-24 12:36:03', '2021-04-30 18:37:49', '77739680169');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_KONTEN`
+--
+
+CREATE TABLE `TB_KONTEN` (
+  `ID` varchar(11) NOT NULL,
+  `JENIS_KONTEN` varchar(2) NOT NULL COMMENT '1 = Pengumuman, 2 = Karir, 3 = Berita',
+  `JUDUL` varchar(200) NOT NULL,
+  `DESKRIPSI` text NOT NULL,
+  `PIC` varchar(200) DEFAULT NULL,
+  `STATUS` varchar(1) NOT NULL DEFAULT '1',
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `TB_KONTEN`
 --
 
 INSERT INTO `TB_KONTEN` (`ID`, `JENIS_KONTEN`, `JUDUL`, `DESKRIPSI`, `PIC`, `STATUS`, `UPDATE_DATE`, `INSERT_DATE`, `CREATED_BY`) VALUES
 ('10820095809', '1', 'LOWONGAN DI NEGARA SINGAPORE', '<p>DIBUTUHKAN CTKI!</p><p>JOBDESK :<br>-Menjaga Anak dengan waktu kerja yang tidak ditentukan<br>-Memasak untuk orang rumah<br>-Memandikan Anak 2x sehari<br>-Membersihkan seluruh rumah<br>-Mencuci Baju</p>', NULL, '1', '2021-07-24 12:36:03', '2021-05-30 02:50:21', '63935625183');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_KONTRAK`
+--
+
+CREATE TABLE `TB_KONTRAK` (
+  `ID` varchar(11) NOT NULL,
+  `NO` int(11) NOT NULL,
+  `NO_KONTRAK` varchar(20) DEFAULT NULL,
+  `ID_PERUSAHAAN` varchar(11) DEFAULT NULL,
+  `LAMA_KONTRAK` varchar(2) DEFAULT NULL,
+  `SATUAN_LAMA_KONTRAK` varchar(5) DEFAULT NULL COMMENT 'TAHUN, BULAN, HARI',
+  `TANGGAL_MULAI` date DEFAULT NULL,
+  `TANGGAL_SELESAI` date DEFAULT NULL,
+  `WAKTU_KERJA` varchar(2) DEFAULT NULL,
+  `SATUAN_WAKTU_KERJA` varchar(5) DEFAULT NULL,
+  `JAM_PERHARI` varchar(2) DEFAULT NULL,
+  `JAM_PERMINGGU` varchar(2) DEFAULT NULL,
+  `ID_PEKERJAAN` varchar(11) DEFAULT NULL,
+  `TGL_PEMBERIAN_GAJI` varchar(2) DEFAULT NULL,
+  `JUMLAH_GAPOK` int(11) DEFAULT NULL,
+  `TUNJANGAN_KESEHATAN` int(11) DEFAULT NULL,
+  `TUNJANGAN_TRANSPORTASI` int(11) DEFAULT NULL,
+  `UANG_KERAJINAN` int(11) DEFAULT NULL,
+  `BIAYA_PENGOBATAN` int(11) DEFAULT NULL,
+  `CUTI_TAHUNAN` varchar(2) DEFAULT NULL,
+  `SYARAT_UNDURDIRI` varchar(2) DEFAULT NULL,
+  `WAKTU_UNDURDIRI` varchar(2) DEFAULT NULL,
+  `TGL_PENGESAHAN` date DEFAULT NULL,
+  `ID_DOKUMEN` varchar(11) DEFAULT NULL,
+  `PIHAK_PERTAMA` varchar(200) DEFAULT NULL,
+  `PIHAK_KEDUA` varchar(200) DEFAULT NULL,
+  `STATUS` varchar(1) DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `CATATAN` text DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TB_KONTRAK`
@@ -1439,6 +1733,23 @@ INSERT INTO `TB_KONTRAK` (`ID`, `NO`, `NO_KONTRAK`, `ID_PERUSAHAAN`, `LAMA_KONTR
 ('93403386812', 13, '13/SKK/VII/2021', '92718486902', '2', 'TAHUN', '2021-07-26', '2021-07-26', '29', NULL, '12', NULL, '82037052359', '1', 4000000, 150000, 350000, 200000, 2000000, '2', '1', '1', '2021-06-29', NULL, 'PT. ASSALAM KARYA MANUNGGAL PUTRA', 'TKI BARU', '1', NULL, '2021-07-25 16:03:44', '2021-07-25 15:59:25', '70702061090'),
 ('97760206879', 8, '8/SKK/VII/2021', '92718486902', '2', 'TAHUN', '2019-06-13', '2021-07-06', '29', NULL, '12', NULL, '82037052359', '29', 4000000, 150000, 350000, 200000, 2000000, '2', '12', '10', '2021-06-18', NULL, 'PT. ASSALAM KARYA MANUNGGAL PUTRA', 'SARIPAH', '1', NULL, '2021-07-25 07:20:23', '2021-06-26 13:03:54', '70702061090');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_KUALIFIKASI`
+--
+
+CREATE TABLE `TB_KUALIFIKASI` (
+  `ID` varchar(11) NOT NULL,
+  `PERTANYAAN` text NOT NULL,
+  `JENIS` varchar(2) NOT NULL DEFAULT '0' COMMENT '1 = Pilihan',
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `CATATAN` text DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `TB_KUALIFIKASI`
 --
@@ -1446,6 +1757,43 @@ INSERT INTO `TB_KONTRAK` (`ID`, `NO`, `NO_KONTRAK`, `ID_PERUSAHAAN`, `LAMA_KONTR
 INSERT INTO `TB_KUALIFIKASI` (`ID`, `PERTANYAAN`, `JENIS`, `STATUS`, `CATATAN`, `UPDATE_DATE`, `INSERT_DATE`, `CREATED_BY`) VALUES
 ('58575113282', 'APAKAH MEMILIKI PENYAKIT ?', '1', '1', '', '2021-07-24 12:36:03', '2021-05-30 02:39:46', '63935625183'),
 ('67573529266', 'APAKAH SIAP UNTUK BEKERJA DIMALAM HARI?', '1', '1', '', '2021-07-24 12:36:03', '2021-05-30 02:42:42', '63935625183');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_LOWONGAN`
+--
+
+CREATE TABLE `TB_LOWONGAN` (
+  `ID` varchar(11) NOT NULL,
+  `JOB` varchar(200) NOT NULL,
+  `JENIS_PEKERJAAN` varchar(11) NOT NULL,
+  `DESKRIPSI` text NOT NULL,
+  `NEGARA` varchar(100) DEFAULT NULL,
+  `ALAMAT_LOKASI` text DEFAULT NULL,
+  `IS_COMPANY` varchar(1) NOT NULL COMMENT 'Y = Company, N = Non Company',
+  `PENERIMA_JASA` varchar(300) DEFAULT NULL,
+  `EMAIL_PJ` varchar(200) DEFAULT NULL,
+  `KODE_PJ` varchar(20) DEFAULT NULL,
+  `JUMLAH_GAPOK` int(11) DEFAULT NULL,
+  `TUNJANGAN_KESEHATAN` int(11) DEFAULT NULL,
+  `TUNJANGAN_TRANSPORTASI` int(11) DEFAULT NULL,
+  `UANG_KERAJINAN` int(11) DEFAULT NULL,
+  `BIAYA_PENGOBATAN` int(11) DEFAULT NULL,
+  `CUTI_TAHUNAN` int(11) DEFAULT NULL,
+  `LAMA_BEKERJA` int(11) DEFAULT NULL,
+  `SATUAN_LAMA_BEKERJA` varchar(5) DEFAULT NULL COMMENT 'TAHUN, BULAN, HARI',
+  `WAKTU_KERJA` varchar(2) DEFAULT NULL,
+  `SATUAN_WAKTU_KERJA` varchar(5) DEFAULT NULL,
+  `JAM_PERHARI` varchar(2) DEFAULT NULL,
+  `JAM_PERMINGGU` varchar(2) DEFAULT NULL,
+  `SLOT_PEKERJAAN` int(11) DEFAULT 1,
+  `IS_USED` varchar(1) NOT NULL DEFAULT 'N',
+  `STATUS` varchar(1) NOT NULL DEFAULT '1',
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TB_LOWONGAN`
@@ -1459,6 +1807,30 @@ INSERT INTO `TB_LOWONGAN` (`ID`, `JOB`, `JENIS_PEKERJAAN`, `DESKRIPSI`, `NEGARA`
 ('74835702502', 'LOWONGAN PRT', '82037052359', 'CUCI PIRING CUCI BAJU', 'ID', 'TAMAN RAHAYU', 'N', 'RUMAH HANTU', 'angeloasyifa21@gmail.com', '345623', 4000000, 150000, 350000, 200000, 2000000, 2, 2, 'TAHUN', '29', 'HARI', '12', NULL, 5, 'N', '1', '2021-07-24 12:36:03', '2021-06-26 10:11:03', '70702061090'),
 ('92137633702', 'BABY SITTER', '82037052359', 'TAKE CARE BABY', '', 'JL TOA PA YO', 'N', 'AGNES ', 'angeloasyifa21@gmail.com', '2913023822921', 6000000, 1000000, 500000, 200000, 650000, 12, 2, 'TAHUN', '6', 'HARI', '12', NULL, 6, 'N', '1', '2021-07-24 12:36:03', '2021-07-22 03:07:45', '63935625183'),
 ('96459870264', 'BABY SITTER', '82037052359', 'BABY SITTER', 'AU', 'SEDNEY STREET', 'N', 'BABY SITTER', 'cippaa19@gmail.com', '39284923742', 6000000, 1000000, 500000, 200000, 650000, 12, 2, 'TAHUN', '6', 'HARI', '12', NULL, 10, 'N', '1', '2021-07-24 12:36:03', '2021-07-20 16:51:23', '63935625183');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_MENU`
+--
+
+CREATE TABLE `TB_MENU` (
+  `ID` int(11) NOT NULL,
+  `NAMA_MENU` varchar(30) DEFAULT NULL,
+  `URL` text DEFAULT NULL,
+  `ROLE` varchar(7) DEFAULT NULL,
+  `IS_PARENT` varchar(1) DEFAULT NULL,
+  `PARENT` varchar(2) DEFAULT NULL,
+  `CHILD` varchar(2) DEFAULT NULL,
+  `SUBCHILD` varchar(2) DEFAULT NULL,
+  `MENU` varchar(2) DEFAULT NULL,
+  `MENU_TEXT` varchar(30) DEFAULT NULL,
+  `URUTAN` int(11) DEFAULT NULL,
+  `ICON` text DEFAULT NULL,
+  `REMARK` text DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TB_MENU`
@@ -1505,6 +1877,18 @@ INSERT INTO `TB_MENU` (`ID`, `NAMA_MENU`, `URL`, `ROLE`, `IS_PARENT`, `PARENT`, 
 (38, 'Login Log', NULL, NULL, NULL, '37', NULL, NULL, '4', 'LOG', 67, NULL, '0', '2021-07-24 12:36:03', '2021-05-06 10:07:02'),
 (39, 'Transaction Log', NULL, NULL, NULL, '37', NULL, NULL, '4', 'LOG', 68, NULL, '0', '2021-07-24 12:36:03', '2021-05-06 10:07:02');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_NEGARA`
+--
+
+CREATE TABLE `TB_NEGARA` (
+  `ID` int(11) NOT NULL,
+  `NEGARA` varchar(100) DEFAULT NULL,
+  `CODE` varchar(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `TB_NEGARA`
 --
@@ -1517,12 +1901,41 @@ INSERT INTO `TB_NEGARA` (`ID`, `NEGARA`, `CODE`) VALUES
 (5, 'Korea', 'KR'),
 (6, 'Malaysia', 'MY');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_PEKERJAAN`
+--
+
+CREATE TABLE `TB_PEKERJAAN` (
+  `ID` varchar(11) NOT NULL,
+  `PEKERJAAN` text DEFAULT NULL,
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NON ACTIVE',
+  `CATATAN` text DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `TB_PEKERJAAN`
 --
 
 INSERT INTO `TB_PEKERJAAN` (`ID`, `PEKERJAAN`, `STATUS`, `CATATAN`, `UPDATE_DATE`, `INSERT_DATE`, `CREATED_BY`) VALUES
 ('82037052359', 'PRT', '1', '', '2021-07-24 12:36:03', '2021-05-30 07:51:14', '63935625183');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_RULE_ACT`
+--
+
+CREATE TABLE `TB_RULE_ACT` (
+  `ID` int(11) NOT NULL,
+  `JENIS` varchar(50) NOT NULL,
+  `TABEL` varchar(30) NOT NULL,
+  `ALLOWED_USERS` varchar(7) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TB_RULE_ACT`
@@ -1577,6 +1990,19 @@ INSERT INTO `TB_RULE_ACT` (`ID`, `JENIS`, `TABEL`, `ALLOWED_USERS`) VALUES
 (46, 'DELETE FILE TKI', 'DOKUMEN', '0|3'),
 (47, 'DELETE FILE KONTRAK/PERJANJIAN', 'DOKUMEN', '0|1|2|3');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_RULE_URL`
+--
+
+CREATE TABLE `TB_RULE_URL` (
+  `ID` int(11) NOT NULL,
+  `URL` text NOT NULL,
+  `ALLOWED_ROLE` varchar(7) NOT NULL,
+  `REMARK` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `TB_RULE_URL`
 --
@@ -1620,6 +2046,23 @@ INSERT INTO `TB_RULE_URL` (`ID`, `URL`, `ALLOWED_ROLE`, `REMARK`) VALUES
 (36, 'index.php/master/Berita/', '0|1', ''),
 (37, 'index.php/master/Konten/add/', '0|1', '');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_SETTING`
+--
+
+CREATE TABLE `TB_SETTING` (
+  `ID` int(11) NOT NULL,
+  `TYPE` varchar(100) NOT NULL,
+  `JENIS` varchar(2) NOT NULL,
+  `TITLE` varchar(200) NOT NULL,
+  `CONTENT` text NOT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `TB_SETTING`
 --
@@ -1627,6 +2070,35 @@ INSERT INTO `TB_RULE_URL` (`ID`, `URL`, `ALLOWED_ROLE`, `REMARK`) VALUES
 INSERT INTO `TB_SETTING` (`ID`, `TYPE`, `JENIS`, `TITLE`, `CONTENT`, `UPDATE_DATE`, `INSERT_DATE`, `CREATED_BY`) VALUES
 (1, 'ABOUT-US', '1', 'Empowering individual', 'Efficiently unleash cross-media tour function information without cross action media value. Quickly maximize timely deliverables for real-time schemas.', '2021-07-24 12:36:03', '2021-04-27 04:52:02', '33730380207'),
 (4, 'COPYRIGHT', '1', '', 'CTKI 2021', '2021-07-24 12:36:03', '2021-04-26 20:52:02', '33730380207');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_SURAT_PERJANJIAN`
+--
+
+CREATE TABLE `TB_SURAT_PERJANJIAN` (
+  `ID` varchar(11) NOT NULL,
+  `NO` int(11) NOT NULL,
+  `NOMOR_SURAT` varchar(100) DEFAULT NULL,
+  `NAMA_PJ` varchar(50) DEFAULT NULL,
+  `NIK_PJ` varchar(20) DEFAULT NULL,
+  `TMP_LAHIR_PJ` varchar(100) DEFAULT NULL,
+  `TGL_LAHIR_PJ` date DEFAULT NULL,
+  `JABATAN_PJ` varchar(50) DEFAULT NULL,
+  `ALAMAT_PJ` text DEFAULT NULL,
+  `NOMOR_SK` varchar(20) DEFAULT NULL,
+  `TANGGAL_SK` date DEFAULT NULL,
+  `ID_TKI` varchar(11) DEFAULT NULL,
+  `NEGARA_TUJUAN` varchar(100) DEFAULT NULL,
+  `ALAMAT` text DEFAULT NULL,
+  `TANGGAL_PENGESAHAN` date DEFAULT NULL,
+  `CATATAN` text DEFAULT NULL,
+  `ID_DOKUMEN` varchar(11) DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TB_SURAT_PERJANJIAN`
@@ -1645,6 +2117,27 @@ INSERT INTO `TB_SURAT_PERJANJIAN` (`ID`, `NO`, `NOMOR_SURAT`, `NAMA_PJ`, `NIK_PJ
 ('66181635938', 2, '2/SPK/VI/2021', 'IMAM', '32857353', NULL, NULL, 'PENYALUR', 'MEDAN RAYA', '25', '2021-04-09', '57138937481', 'INDONESIA', 'JL.MELATI RT. 03 RW. 04 KEL. CIMUNING KEC. MUSTIKA BEKASI 5032 JAWA BARAT CIKETING', '2021-05-05', NULL, NULL, '2021-07-24 12:36:03', '2021-06-26 11:11:46', '63935625183'),
 ('67481019884', 5, '5/SPK/VI/2021', 'AMEL', '32456456', NULL, NULL, 'PENYALUR', 'TRR 1', '32', '2020-06-12', '69780407925', 'INDONESIA', 'JL.MAWAR RAYA RT. 04 RW. 05 KEL. CIKETING KEC. BTG BEKASI 5423 JAWA BARAT CIKETING', '2021-07-08', NULL, NULL, '2021-07-24 12:36:03', '2021-06-28 08:18:06', '63935625183'),
 ('92180030129', 7, '7/SPK/VII/2021', 'RESTI', '3249582', NULL, NULL, 'PENYALUR', 'TAMAN RAHAYU', '20', '2021-12-11', '91364055944', 'INDONESIA', 'JL ILYUSIN RT. 010 RW. 009 KEL. GUNUNG KEC. HANG JEBAT JAKARTA SELATAN 14304 DKI JAKARTA GUNUNG', '2021-12-11', NULL, NULL, '2021-07-24 12:36:03', '2021-07-05 16:02:24', '63935625183');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `TB_USER`
+--
+
+CREATE TABLE `TB_USER` (
+  `ID` varchar(11) NOT NULL,
+  `USERNAME` varchar(50) NOT NULL,
+  `PASSWORD` varchar(50) NOT NULL DEFAULT '575f5d6cef70204485e63956d4366546' COMMENT 'DEFAULT ctki2021',
+  `NAMA` varchar(100) NOT NULL,
+  `JENIS` varchar(1) NOT NULL DEFAULT '3' COMMENT ' 0 = SUPERADMIN, 1 = ADMIN, 2 = MANAGER, 3 = PENYALUR, 4 = UNASSIGNED',
+  `ID_GROUP` varchar(3) DEFAULT NULL,
+  `STATUS` varchar(1) NOT NULL DEFAULT '1' COMMENT '1 = ACTIVE, 0 = NONACTIVE',
+  `AKTIVASI` varchar(1) NOT NULL DEFAULT '0',
+  `ID_PENYALUR` varchar(11) DEFAULT NULL,
+  `UPDATE_DATE` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `INSERT_DATE` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CREATED_BY` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `TB_USER`
@@ -1673,6 +2166,342 @@ INSERT INTO `TB_USER` (`ID`, `USERNAME`, `PASSWORD`, `NAMA`, `JENIS`, `ID_GROUP`
 ('77948121680', 'amel', 'ef77dc208893e4a5affef5f3bff49316', 'AMEL', '3', '2', '1', '1', '11789424119', '2021-07-24 12:36:03', '2021-06-28 05:46:48', '70702061090'),
 ('86629414379', 'resti', 'ef77dc208893e4a5affef5f3bff49316', 'RESTI', '3', '1', '1', '1', '05246530671', '2021-07-24 12:36:03', '2021-06-26 09:50:47', '70702061090'),
 ('87429290576', 'testingadmin2', '575f5d6cef70204485e63956d4366546', 'TESTING ADMIN', '1', '-', '1', '1', NULL, '2021-07-24 12:36:03', '2021-05-28 12:36:19', '33730380207');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `DOKUMEN`
+--
+ALTER TABLE `DOKUMEN`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_JENIS_DOK` (`ID_JENIS_DOK`),
+  ADD KEY `ID_KONTRAK` (`ID_KONTRAK`),
+  ADD KEY `ID_PERJANJIAN` (`ID_PERJANJIAN`),
+  ADD KEY `ID_TKI` (`ID_TKI`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`);
+
+--
+-- Indexes for table `JUSTIFIKASI_PEKERJAAN`
+--
+ALTER TABLE `JUSTIFIKASI_PEKERJAAN`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `ID_KONTRAK` (`ID_KONTRAK`),
+  ADD UNIQUE KEY `ID_PERJANJIAN` (`ID_PERJANJIAN`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`),
+  ADD KEY `ID_PEKERJAAN` (`ID_PEKERJAAN`),
+  ADD KEY `ID_TKI` (`ID_TKI`),
+  ADD KEY `APPROVED_BY_1` (`APPROVED_BY_1`),
+  ADD KEY `APPROVED_BY_2` (`APPROVED_BY_2`),
+  ADD KEY `APPROVED_BY_3` (`APPROVED_BY_3`);
+
+--
+-- Indexes for table `KUALIFIKASI`
+--
+ALTER TABLE `KUALIFIKASI`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_KUALIFIKASI` (`ID_KUALIFIKASI`),
+  ADD KEY `ID_TKI` (`ID_TKI`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`);
+
+--
+-- Indexes for table `LOG`
+--
+ALTER TABLE `LOG`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_USER` (`ID_USER`),
+  ADD KEY `JENIS` (`JENIS`);
+
+--
+-- Indexes for table `LOG_EVENT`
+--
+ALTER TABLE `LOG_EVENT`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `MST_PENYALUR`
+--
+ALTER TABLE `MST_PENYALUR`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `APPROVED_BY` (`APPROVED_BY`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`),
+  ADD KEY `ID_GROUP` (`ID_GROUP`);
+
+--
+-- Indexes for table `MST_PERUSAHAAN`
+--
+ALTER TABLE `MST_PERUSAHAAN`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `NPWP` (`NPWP`);
+
+--
+-- Indexes for table `MST_TKI`
+--
+ALTER TABLE `MST_TKI`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `NIK` (`NIK`),
+  ADD KEY `APPROVED_BY` (`APPROVED_BY`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`);
+
+--
+-- Indexes for table `RIWAYAT_PEKERJAAN`
+--
+ALTER TABLE `RIWAYAT_PEKERJAAN`
+  ADD KEY `CREATED_BY` (`CREATED_BY`),
+  ADD KEY `ID_PEKERJAAN` (`ID_PEKERJAAN`),
+  ADD KEY `ID_TKI` (`ID_TKI`);
+
+--
+-- Indexes for table `TB_EVENTTYPE`
+--
+ALTER TABLE `TB_EVENTTYPE`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_GROUP`
+--
+ALTER TABLE `TB_GROUP`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_PERUSAHAAN` (`ID_PERUSAHAAN`);
+
+--
+-- Indexes for table `TB_JENIS_DOK`
+--
+ALTER TABLE `TB_JENIS_DOK`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`);
+
+--
+-- Indexes for table `TB_KONTEN`
+--
+ALTER TABLE `TB_KONTEN`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_KONTRAK`
+--
+ALTER TABLE `TB_KONTRAK`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `NO` (`NO`),
+  ADD UNIQUE KEY `NO_KONTRAK` (`NO_KONTRAK`),
+  ADD KEY `ID_PEKERJAAN` (`ID_PEKERJAAN`),
+  ADD KEY `ID_PERUSAHAAN` (`ID_PERUSAHAAN`);
+
+--
+-- Indexes for table `TB_KUALIFIKASI`
+--
+ALTER TABLE `TB_KUALIFIKASI`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`);
+
+--
+-- Indexes for table `TB_LOWONGAN`
+--
+ALTER TABLE `TB_LOWONGAN`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_MENU`
+--
+ALTER TABLE `TB_MENU`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_NEGARA`
+--
+ALTER TABLE `TB_NEGARA`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_PEKERJAAN`
+--
+ALTER TABLE `TB_PEKERJAAN`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`);
+
+--
+-- Indexes for table `TB_RULE_ACT`
+--
+ALTER TABLE `TB_RULE_ACT`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_RULE_URL`
+--
+ALTER TABLE `TB_RULE_URL`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_SETTING`
+--
+ALTER TABLE `TB_SETTING`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `TB_SURAT_PERJANJIAN`
+--
+ALTER TABLE `TB_SURAT_PERJANJIAN`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `NO` (`NO`),
+  ADD KEY `ID_DOKUMEN` (`ID_DOKUMEN`),
+  ADD KEY `ID_TKI` (`ID_TKI`),
+  ADD KEY `CREATED_BY` (`CREATED_BY`);
+
+--
+-- Indexes for table `TB_USER`
+--
+ALTER TABLE `TB_USER`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `USERNAME` (`USERNAME`),
+  ADD UNIQUE KEY `ID_PENYALUR` (`ID_PENYALUR`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `LOG`
+--
+ALTER TABLE `LOG`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1015;
+
+--
+-- AUTO_INCREMENT for table `LOG_EVENT`
+--
+ALTER TABLE `LOG_EVENT`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+
+--
+-- AUTO_INCREMENT for table `TB_EVENTTYPE`
+--
+ALTER TABLE `TB_EVENTTYPE`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `TB_GROUP`
+--
+ALTER TABLE `TB_GROUP`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `TB_KONTRAK`
+--
+ALTER TABLE `TB_KONTRAK`
+  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `TB_MENU`
+--
+ALTER TABLE `TB_MENU`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `TB_NEGARA`
+--
+ALTER TABLE `TB_NEGARA`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `TB_RULE_ACT`
+--
+ALTER TABLE `TB_RULE_ACT`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT for table `TB_RULE_URL`
+--
+ALTER TABLE `TB_RULE_URL`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `TB_SETTING`
+--
+ALTER TABLE `TB_SETTING`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `TB_SURAT_PERJANJIAN`
+--
+ALTER TABLE `TB_SURAT_PERJANJIAN`
+  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `DOKUMEN`
+--
+ALTER TABLE `DOKUMEN`
+  ADD CONSTRAINT `DOKUMEN_ibfk_1` FOREIGN KEY (`ID_JENIS_DOK`) REFERENCES `TB_JENIS_DOK` (`ID`),
+  ADD CONSTRAINT `DOKUMEN_ibfk_2` FOREIGN KEY (`ID_KONTRAK`) REFERENCES `TB_KONTRAK` (`ID`),
+  ADD CONSTRAINT `DOKUMEN_ibfk_3` FOREIGN KEY (`ID_PERJANJIAN`) REFERENCES `TB_SURAT_PERJANJIAN` (`ID`),
+  ADD CONSTRAINT `DOKUMEN_ibfk_4` FOREIGN KEY (`ID_TKI`) REFERENCES `MST_TKI` (`ID`);
+
+--
+-- Constraints for table `JUSTIFIKASI_PEKERJAAN`
+--
+ALTER TABLE `JUSTIFIKASI_PEKERJAAN`
+  ADD CONSTRAINT `JUSTIFIKASI_PEKERJAAN_ibfk_10` FOREIGN KEY (`APPROVED_BY_2`) REFERENCES `TB_USER` (`ID`),
+  ADD CONSTRAINT `JUSTIFIKASI_PEKERJAAN_ibfk_11` FOREIGN KEY (`APPROVED_BY_3`) REFERENCES `TB_USER` (`ID`),
+  ADD CONSTRAINT `JUSTIFIKASI_PEKERJAAN_ibfk_5` FOREIGN KEY (`ID_KONTRAK`) REFERENCES `TB_KONTRAK` (`ID`),
+  ADD CONSTRAINT `JUSTIFIKASI_PEKERJAAN_ibfk_6` FOREIGN KEY (`ID_PEKERJAAN`) REFERENCES `TB_PEKERJAAN` (`ID`),
+  ADD CONSTRAINT `JUSTIFIKASI_PEKERJAAN_ibfk_7` FOREIGN KEY (`ID_PERJANJIAN`) REFERENCES `TB_SURAT_PERJANJIAN` (`ID`),
+  ADD CONSTRAINT `JUSTIFIKASI_PEKERJAAN_ibfk_8` FOREIGN KEY (`ID_TKI`) REFERENCES `MST_TKI` (`ID`),
+  ADD CONSTRAINT `JUSTIFIKASI_PEKERJAAN_ibfk_9` FOREIGN KEY (`APPROVED_BY_1`) REFERENCES `TB_USER` (`ID`);
+
+--
+-- Constraints for table `KUALIFIKASI`
+--
+ALTER TABLE `KUALIFIKASI`
+  ADD CONSTRAINT `KUALIFIKASI_ibfk_1` FOREIGN KEY (`ID_KUALIFIKASI`) REFERENCES `TB_KUALIFIKASI` (`ID`),
+  ADD CONSTRAINT `KUALIFIKASI_ibfk_2` FOREIGN KEY (`ID_TKI`) REFERENCES `MST_TKI` (`ID`);
+
+--
+-- Constraints for table `LOG`
+--
+ALTER TABLE `LOG`
+  ADD CONSTRAINT `LOG_ibfk_1` FOREIGN KEY (`JENIS`) REFERENCES `TB_RULE_ACT` (`ID`);
+
+--
+-- Constraints for table `MST_PENYALUR`
+--
+ALTER TABLE `MST_PENYALUR`
+  ADD CONSTRAINT `MST_PENYALUR_ibfk_4` FOREIGN KEY (`ID_GROUP`) REFERENCES `TB_GROUP` (`ID`);
+
+--
+-- Constraints for table `MST_TKI`
+--
+ALTER TABLE `MST_TKI`
+  ADD CONSTRAINT `MST_TKI_ibfk_1` FOREIGN KEY (`APPROVED_BY`) REFERENCES `TB_USER` (`ID`);
+
+--
+-- Constraints for table `RIWAYAT_PEKERJAAN`
+--
+ALTER TABLE `RIWAYAT_PEKERJAAN`
+  ADD CONSTRAINT `RIWAYAT_PEKERJAAN_ibfk_2` FOREIGN KEY (`ID_PEKERJAAN`) REFERENCES `TB_PEKERJAAN` (`ID`),
+  ADD CONSTRAINT `RIWAYAT_PEKERJAAN_ibfk_3` FOREIGN KEY (`ID_TKI`) REFERENCES `MST_TKI` (`ID`);
+
+--
+-- Constraints for table `TB_GROUP`
+--
+ALTER TABLE `TB_GROUP`
+  ADD CONSTRAINT `TB_GROUP_ibfk_1` FOREIGN KEY (`ID_PERUSAHAAN`) REFERENCES `MST_PERUSAHAAN` (`ID`);
+
+--
+-- Constraints for table `TB_KONTRAK`
+--
+ALTER TABLE `TB_KONTRAK`
+  ADD CONSTRAINT `TB_KONTRAK_ibfk_2` FOREIGN KEY (`ID_PEKERJAAN`) REFERENCES `TB_PEKERJAAN` (`ID`),
+  ADD CONSTRAINT `TB_KONTRAK_ibfk_3` FOREIGN KEY (`ID_PERUSAHAAN`) REFERENCES `MST_PERUSAHAAN` (`ID`);
+
+--
+-- Constraints for table `TB_SURAT_PERJANJIAN`
+--
+ALTER TABLE `TB_SURAT_PERJANJIAN`
+  ADD CONSTRAINT `TB_SURAT_PERJANJIAN_ibfk_1` FOREIGN KEY (`ID_DOKUMEN`) REFERENCES `DOKUMEN` (`ID`),
+  ADD CONSTRAINT `TB_SURAT_PERJANJIAN_ibfk_2` FOREIGN KEY (`ID_TKI`) REFERENCES `MST_TKI` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
