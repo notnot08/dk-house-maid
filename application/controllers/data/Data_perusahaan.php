@@ -84,7 +84,8 @@ class Data_perusahaan extends CI_Controller {
 					'CODE' => $id,
 					'AKSI' => 'CREATE',
 					'STATUS' => '1',
-					'CHANGE_STATUS' => $value,
+					// 'CHANGE_STATUS' => $value,
+					'CHANGE_STATUS' => "",
 					'CATATAN' => '',
 					'ID_USER' => $_SESSION['logged_in']['id_user']
 				);
@@ -99,7 +100,8 @@ class Data_perusahaan extends CI_Controller {
 					'CODE' => $id,
 					'AKSI' => 'CREATE',
 					'STATUS' => '0',
-					'CHANGE_STATUS' => $value,
+					// 'CHANGE_STATUS' => $value,
+					'CHANGE_STATUS' => "",
 					'CATATAN' => '',
 					'ID_USER' => $_SESSION['logged_in']['id_user']
 				);
