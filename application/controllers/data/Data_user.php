@@ -168,7 +168,7 @@ class Data_user extends CI_Controller {
 	}
 
 	public function resetPassword($value){
-		$validate = $this->Log_model->validateAct('48')->num_rows();
+		$validate = $this->Log_model->validateAct('4')->num_rows();
 		if ($validate > 0) {
 			$result = $this->User_model->resetPassword($value);
 			if ($result == TRUE) {
@@ -177,7 +177,7 @@ class Data_user extends CI_Controller {
 					<i class="icon fas fa-check"></i> Sukses reset password
 					</div>');
 				$data_log = array(
-					'JENIS' => '48',
+					'JENIS' => '4',
 					'CODE' => $value,
 					'AKSI' => 'UPDATE',
 					'STATUS' => '1',
@@ -192,7 +192,7 @@ class Data_user extends CI_Controller {
 					<i class="icon fas fa-ban"></i> Gagal reset password
 					</div>');
 				$data_log = array(
-					'JENIS' => '48',
+					'JENIS' => '4',
 					'CODE' => $value,
 					'AKSI' => 'UPDATE',
 					'STATUS' => '0',

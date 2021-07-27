@@ -74,7 +74,8 @@ class Data_tki extends CI_Controller {
 						'CODE' => $id_tki,
 						'AKSI' => 'CREATE',
 						'STATUS' => '1',
-						'CATATAN' => implode("|",$data_diri),
+						// 'CATATAN' => implode("|",$data_diri),
+						'CATATAN' => implode("|", "SUKSES"),
 						'ID_USER' => $_SESSION['logged_in']['id_user']
 					);
 					$this->Log_model->insert_log($data_log_insert_tki);
@@ -282,7 +283,8 @@ class Data_tki extends CI_Controller {
 							'CODE' => $id_tki_update,
 							'AKSI' => 'UPDATE',
 							'STATUS' => '1',
-							'CATATAN' => implode("|",$data_diri),
+							// 'CATATAN' => implode("|",$data_diri),
+							'CATATAN' => implode("|", "SUKSES"),
 							'ID_USER' => $_SESSION['logged_in']['id_user']
 						);
 						$this->Log_model->insert_log($data_log_insert_tki);
