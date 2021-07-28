@@ -122,7 +122,7 @@ class Data_perjanjian extends CI_Controller {
 				if ($result2 == TRUE) {
 					$data_log = array(
 						'JENIS' => '34',
-						'CODE' => $id,
+						'CODE' => '',
 						'AKSI' => 'UPDATE',
 						'STATUS' => '1',
 						'CHANGE_STATUS' => '',
@@ -134,7 +134,7 @@ class Data_perjanjian extends CI_Controller {
 				} else {
 					$data_log = array(
 						'JENIS' => '34',
-						'CODE' => $id,
+						'CODE' => '',
 						'AKSI' => 'UPDATE',
 						'STATUS' => '0',
 						'CHANGE_STATUS' => '',
